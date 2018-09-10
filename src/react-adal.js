@@ -64,6 +64,11 @@ export const withAdalLogin = (authContext, resourceId) => {
             const { msg } = error;
             console.log(error);
             if (msg === 'login required') {
+              authContext.callback = (err, token) => {
+                if (err === undefined) {
+                  this.setState({logged: true, error: null});
+                }
+              };
               authContext.login();
             } else {
               this.setState({ error });
